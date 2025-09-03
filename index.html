@@ -122,10 +122,11 @@
             }, 3000);
         }
 
-        // Define training sessions with specific dates and times based on the provided document
+        // Define training sessions with specific dates and times
         const sessions = [
-            // แก้ไขวันที่อบรมเพื่อการทดสอบ
-            { name: "วันศุกร์ที่ 12 ก.ย. 68", details: "พิธีเปิดการอบรม", start: new Date('2025-09-03T16:00:00'), end: new Date('2025-09-03T16:30:00') },
+            // เพิ่มการอบรมในวันที่ปัจจุบันเพื่อให้สามารถทดสอบได้
+            { name: "อบรมทดสอบ", details: "การทดสอบระบบ", start: new Date(), end: new Date(new Date().getTime() + 60 * 60 * 1000) }, // 1-hour duration for testing
+            { name: "วันศุกร์ที่ 12 ก.ย. 68", details: "พิธีเปิดการอบรม", start: new Date('2025-09-12T13:00:00'), end: new Date('2025-09-12T14:30:00') },
             { name: "วันเสาร์ที่ 13 ก.ย. 68", details: "ทักษะและศิลปะการบริหารงานสำหรับผู้บริหารมหาวิทยาลัยระดับกลาง", start: new Date('2025-09-13T09:00:00'), end: new Date('2025-09-13T10:30:00') },
             { name: "วันเสาร์ที่ 13 ก.ย. 68", details: "บูรพาสัมพันธ์ มุ่งมั่นเป็นหนึ่งเดียว", start: new Date('2025-09-13T13:00:00'), end: new Date('2025-09-13T16:00:00') },
             { name: "วันศุกร์ที่ 19 ก.ย. 68", details: "AI-Driven Leadership: ผู้บริหารระดับกลางต้องปรับตัวอย่างไร", start: new Date('2025-09-19T09:00:00'), end: new Date('2025-09-19T12:00:00') },
