@@ -98,28 +98,16 @@
         // Use global variables provided by the Canvas environment for Firebase configuration
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
         
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyAuwDp8ErgRK_fWPCdrIIewzZ6WTQ7LPrk",
-  authDomain: "registration-b1219.firebaseapp.com",
-  projectId: "registration-b1219",
-  storageBucket: "registration-b1219.firebasestorage.app",
-  messagingSenderId: "780089975913",
-  appId: "1:780089975913:web:5b83562fdf9a3a43fe6ef8",
-  measurementId: "G-311FN3M9W7"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-        
+        // Use provided Firebase configuration for this project
+        const defaultFirebaseConfig = {
+            apiKey: "AIzaSyAuwDp8ErgRK_fWPCdrIIewzZ6WTQ7LPrk",
+            authDomain: "registration-b1219.firebaseapp.com",
+            projectId: "registration-b1219",
+            storageBucket: "registration-b1219.firebasestorage.app",
+            messagingSenderId: "780089975913",
+            appId: "1:780089975913:web:5b83562fdf9a3a43fe6ef8",
+            measurementId: "G-311FN3M9W7"
+        };
         const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : defaultFirebaseConfig;
         
         const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
@@ -301,4 +289,3 @@ const analytics = getAnalytics(app);
     </script>
 </body>
 </html>
-
