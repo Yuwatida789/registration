@@ -95,9 +95,19 @@
         // Set log level to debug for development
         setLogLevel('Debug');
 
-        const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
+        // Use global variables provided by the Canvas environment for Firebase configuration
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : null;
         const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
         
+        if (!firebaseConfig) {
+            console.error("Firebase configuration is missing.");
+            // Disable the form if Firebase config is not available
+            document.getElementById('submitBtn').disabled = true;
+            document.getElementById('currentSession').textContent = "การตั้งค่า Firebase ขาดหาย";
+            document.getElementById('totalParticipants').textContent = "ไม่สามารถเชื่อมต่อฐานข้อมูลได้";
+        }
+
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
@@ -110,7 +120,6 @@
         const currentSessionEl = document.getElementById('currentSession');
 
         let userId = null;
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
         const collectionPath = `/artifacts/${appId}/public/data/registrations`;
 
         // Function to show a temporary message box
@@ -124,7 +133,7 @@
 
         // Define training sessions with specific dates and times
         const sessions = [
-            // เพิ่มการอบรมในวันที่ปัจจุบันเพื่อให้สามารถทดสอบได้
+            // อัปเดตเพื่อให้สามารถทดสอบได้
             { name: "อบรมทดสอบ", details: "การทดสอบระบบ", start: new Date(), end: new Date(new Date().getTime() + 60 * 60 * 1000) }, // 1-hour duration for testing
             { name: "วันศุกร์ที่ 12 ก.ย. 68", details: "พิธีเปิดการอบรม", start: new Date('2025-09-12T13:00:00'), end: new Date('2025-09-12T14:30:00') },
             { name: "วันเสาร์ที่ 13 ก.ย. 68", details: "ทักษะและศิลปะการบริหารงานสำหรับผู้บริหารมหาวิทยาลัยระดับกลาง", start: new Date('2025-09-13T09:00:00'), end: new Date('2025-09-13T10:30:00') },
@@ -206,7 +215,7 @@
                 }
 
             } else {
-                console.log("No user signed in. Attempting to sign in...");
+                console.log("No user signed in. Attempting to sign in with custom token or anonymously...");
                 try {
                     if (initialAuthToken) {
                         await signInWithCustomToken(auth, initialAuthToken);
